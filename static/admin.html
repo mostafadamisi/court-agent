@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CourtAgent AI | Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .admin-page-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 1rem;
+        }
+
+        .admin-section {
+            flex: 1;
+            padding: 2rem 0;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .dashboard-grid {
+            margin-top: 1rem;
+        }
+
+        .nav-btn {
+            border-color: var(--primary-lime);
+            color: var(--primary-lime);
+        }
+
+        .nav-btn:hover {
+            color: var(--primary-cyan);
+            border-color: var(--primary-cyan);
+        }
+    </style>
+</head>
+
+<body class="admin-page">
+
+    <!-- Liquid Glass Background -->
+    <div class="liquid-background">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="backdrop-blur"></div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="admin-page-container">
+
+        <!-- Navigation / Header -->
+        <header class="glass-header">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="assets/logo.png" alt="Devorise AI Logo" id="app-logo">
+                </a>
+            </div>
+            <button class="burger-btn" id="burger-menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="nav-actions" id="nav-menu">
+                <a href="index.html" class="nav-btn">Home</a>
+            </div>
+        </header>
+
+        <!-- View: Admin Dashboard -->
+        <main class="admin-section">
+            <div class="dashboard-grid">
+                <!-- Metric Cards -->
+                <div class="glass-card metric-card">
+                    <div class="metric-icon"><i class="fa-solid fa-sack-dollar"></i></div>
+                    <h3>Monthly Revenue</h3>
+                    <p class="metric-value" id="metric-revenue">Loading...</p>
+                </div>
+
+                <div class="glass-card metric-card">
+                    <div class="metric-icon"><i class="fa-solid fa-ticket"></i></div>
+                    <h3>Total Bookings</h3>
+                    <p class="metric-value" id="metric-bookings">Loading...</p>
+                </div>
+
+                <div class="glass-card metric-card">
+                    <div class="metric-icon"><i class="fa-solid fa-trophy"></i></div>
+                    <h3>Top Venue</h3>
+                    <p class="metric-value" id="metric-top-venue">Loading...</p>
+                </div>
+
+                <div class="glass-card metric-card">
+                    <div class="metric-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <h3>Avg. Value</h3>
+                    <p class="metric-value" id="metric-avg-value">Loading...</p>
+                </div>
+
+                <div class="glass-card metric-card">
+                    <div class="metric-icon"><i class="fa-solid fa-circle-nodes"></i></div>
+                    <h3>Active Inquiries</h3>
+                    <p class="metric-value" id="metric-active-inquiries">Loading...</p>
+                </div>
+
+                <div class="glass-card metric-card">
+                    <div class="metric-icon"><i class="fa-solid fa-percent"></i></div>
+                    <h3>Conversion Rate</h3>
+                    <p class="metric-value" id="metric-conversion-rate">Loading...</p>
+                </div>
+
+                <div class="glass-card metric-card">
+                    <div class="metric-icon"><i class="fa-solid fa-clock"></i></div>
+                    <h3>Peak Time</h3>
+                    <p class="metric-value" id="metric-peak-time">Loading...</p>
+                </div>
+
+                <div class="glass-card metric-card">
+                    <div class="metric-icon"><i class="fa-solid fa-users-rotate"></i></div>
+                    <h3>Returning Users</h3>
+                    <p class="metric-value" id="metric-returning-users">Loading...</p>
+                </div>
+
+                <!-- Control Panel -->
+            </div>
+
+            <!-- Venue Management Section -->
+            <div class="glass-card control-card">
+                <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3>Venue Management</h3>
+                        <button id="add-venue-btn" class="primary-btn"
+                            style="padding: 0.6rem 1.2rem; font-size: 0.9rem;">
+                            <i class="fa-solid fa-plus"></i> Add Venue
+                        </button>
+                    </div>
+
+                    <!-- Search and Filter Row -->
+                    <div class="search-bar-container">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="venue-search" placeholder="Search by name, location or sport..."
+                            class="search-input">
+                    </div>
+                </div>
+
+                <div id="venues-table-container" class="table-container-fade">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Location</th>
+                                <th>Type</th>
+                                <th>Price (JOD)</th>
+                                <th>Mode</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="venues-list-body">
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 2rem; opacity: 0.5;">Loading
+                                    venues...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <!-- Custom Confirmation Modal -->
+        <div id="confirm-modal" class="popup-overlay" style="display: none;">
+            <div class="popup-content" style="max-width: 400px;">
+                <div class="popup-icon-container" style="background: rgba(255, 71, 87, 0.1); color: #ff4757;">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <h2 class="popup-title">Are you sure?</h2>
+                <p class="popup-message" id="confirm-message">This action cannot be undone.</p>
+                <div style="display: flex; gap: 10px; margin-top: 1.5rem; width: 100%;">
+                    <button id="confirm-cancel-btn" class="nav-btn" style="flex: 1;">Cancel</button>
+                    <button id="confirm-proceed-btn" class="primary-btn"
+                        style="flex: 1; background: #ff4757; color: white;">Delete</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notifications Container -->
+        <div id="toast-container" class="toast-container"></div>
+    </div>
+
+    <!-- Add Venue Modal -->
+    <div id="venue-modal" class="popup-overlay" style="display: none;">
+        <div class="popup-content" style="max-width: 500px; text-align: left;">
+            <h2 class="popup-title">Add New Venue</h2>
+            <form id="add-venue-form" style="display: flex; flex-direction: column; gap: 15px; margin-top: 1rem;">
+                <div class="form-group">
+                    <label>Venue Name</label>
+                    <input type="text" id="v-name" class="inline-input" required placeholder="e.g. King Hussein Park">
+                </div>
+                <div class="form-group">
+                    <label>City</label>
+                    <input type="text" id="v-city" class="inline-input" required placeholder="e.g. Amman">
+                </div>
+                <div class="form-group">
+                    <label>District</label>
+                    <input type="text" id="v-district" class="inline-input" placeholder="e.g. Khalda">
+                </div>
+                <div class="form-group">
+                    <label>Sport Type</label>
+                    <select id="v-type" class="dashboard-select" style="width: 100%;">
+                        <option value="Padel">Padel</option>
+                        <option value="Soccer">Soccer</option>
+                        <option value="Basketball">Basketball</option>
+                        <option value="Tennis">Tennis</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Price per Hour (JOD)</label>
+                    <input type="number" id="v-price" class="inline-input" required value="25">
+                </div>
+                <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
+                    <input type="checkbox" id="v-isIndoor" style="width: 20px; height: 20px;">
+                    <label>Indoor Court</label>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <button type="button" id="close-modal-btn" class="nav-btn" style="flex: 1;">Cancel</button>
+                    <button type="submit" class="confirm-booking-btn" style="flex: 2; margin-top: 0;">Save
+                        Venue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/admin_page.js"></script>
+</body>
+
+</html>
