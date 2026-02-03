@@ -265,6 +265,7 @@ def build_filter_description(venues_before: List[dict], venues_after: List[dict]
 # API ENDPOINTS
 # ============================================
 
+@app.get("/health")
 @app.get("/")
 def root():
     """Health check endpoint"""
