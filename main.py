@@ -55,6 +55,11 @@ if os.path.exists(static_dir):
                 return f.read()
         return "Frontend not found"
 
+@app.get("/health")
+def health_check():
+    """Dedicated health check for Render"""
+    return {"status": "ok", "timestamp": datetime.now().isoformat()}
+
 # Pydantic Models
 class Venue(BaseModel):
     name: str
@@ -287,9 +292,9 @@ def build_filter_description(venues_before: List[dict], venues_after: List[dict]
 # API ENDPOINTS
 # ============================================
 
-@app.get("/")
-def root():
-    """Health check endpoint"""
+@app.get("/api/status")
+def api_status():
+    """API metadata endpoint"""
     return {
         "status": "online",
         "service": "AI Sports Booking API",
